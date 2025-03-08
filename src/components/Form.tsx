@@ -43,7 +43,7 @@ const sharedInputStyle =
 export const Input = (props: InputType) => (
   <input
     {...props}
-    className={twMerge(sharedInputStyle, "px-2.5", props?.className)}
+    className={twMerge(sharedInputStyle, "px-2.5 bg-white", props?.className)}
   />
 );
 

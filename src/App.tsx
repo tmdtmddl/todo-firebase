@@ -22,7 +22,7 @@ const Todo = () => {
   return (
     <>
       <AlertComponent />
-      <Container.Col className="flex flex-col gap-y-2.5  max-w-2xl mx-auto border-2 p-8 border-gray-400">
+      <Container.Col className="flex flex-col gap-y-2.5  max-w-2xl mx-auto border-2 p-8 border-gray-300 bg-stone-50">
         <Typo.H1 className="flex justify-center text-5xl gap-x-3">
           <p> 유저명단</p> <PiUserListLight className="text-green-900" />
         </Typo.H1>

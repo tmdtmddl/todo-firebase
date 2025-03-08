@@ -30,7 +30,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   }, [payload, setTodos, alert]);
 
   return (
-    <li className="border border-teal-800 rounded-xl">
+    <li className="border border-teal-800 rounded-xl bg-white">
       <AlertComponent />
       {isEditing ? (
         <TodoForm
@@ -82,7 +82,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
         </Container.Col>
       )}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center backdrop-opacity-80 ">
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-xs ">
           <div className="bg-white p-5 rounded-lg shadow-lg w-80 flex flex-col border border-teal-900">
             <div className="flex justify-end">
               <Button.Opacity onClick={toggleModal} className="bg-white w-10 ">
