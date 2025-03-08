@@ -27,7 +27,7 @@ const Todo = () => {
           <p> 유저명단</p> <PiUserListLight className="text-green-900" />
         </Typo.H1>
         <TodoForm todos={todos} setTodos={setTodos} />
-        <ul className="flex flex-col gap-y-2">
+        <ul className="grid  gap-y-2  md:grid-cols-2 md:gap-2  lg:grid-cols-3 lg:gap-2">
           {todos.map((todo, index) => {
             return (
               <TodoItem

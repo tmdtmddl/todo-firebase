@@ -40,7 +40,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   }, [payload, setTodos, alert]);
 
   return (
-    <li className="border border-teal-800 rounded-xl bg-white">
+    <li className="border border-teal-800 rounded-xl bg-white ">
       <AlertComponent />
       {isEditing ? (
         <TodoForm
@@ -51,7 +51,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
           todos={todos}
         />
       ) : (
-        <Container.Col className="flex flex-row justify-between p-5">
+        <Container.Col className="flex flex-row justify-between p-5 lg:flex-col">
           <div>
             <div className="flex gap-x-1.5 items-center ">
               <FaUser className="text-teal-700" />
@@ -63,12 +63,12 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
           </div>
 
           <Container.Col className="flex flex-col justify-between gap-y-4 ">
-            <div className="flex justify-end ">
+            <div className="flex justify-end lg:justify-start">
               <Button.Opacity
                 onClick={toggleModal}
                 className={twMerge(
                   bnts,
-                  " rounded-3xl bg-teal-700 justify-end text-white items-center"
+                  " rounded-3xl bg-teal-700 justify-end text-white items-center "
                 )}
               >
                 ID확인
@@ -94,9 +94,12 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
       )}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center backdrop-blur-xs ">
-          <div className="bg-white p-5 rounded-lg shadow-lg w-80 flex flex-col border border-teal-900">
+          <div className="bg-green-50 p-5 rounded-lg shadow-lg w-80 flex flex-col border border-green-600">
             <div className="flex justify-end">
-              <Button.Opacity onClick={toggleModal} className="bg-white w-10 ">
+              <Button.Opacity
+                onClick={toggleModal}
+                className="bg-green-50 w-10  font-bold"
+              >
                 X
               </Button.Opacity>
             </div>
