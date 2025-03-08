@@ -26,7 +26,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   const onDelete = useCallback(async () => {
     const ref = dbService.collection("sample").doc();
     if (confirm("삭제하시겠습니까?")) {
-      setTodos((prev) => prev.filter((item) => item !== payload));
+      setTodos((prev) => prev.filter((item) => item.name !== payload?.name));
       alert("삭제했습니다");
     } else {
       alert("취소했습니다");
