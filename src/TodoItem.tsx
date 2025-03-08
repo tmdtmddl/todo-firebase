@@ -4,6 +4,8 @@ import { AlertComponent, Button, Container } from "./components";
 import { User } from "./@types";
 import { twMerge } from "tailwind-merge";
 import { Alert } from "./context";
+import { FaUser } from "react-icons/fa";
+import { dbService } from "./lib";
 
 interface Props {
   todos: User[];
@@ -19,13 +21,21 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
 
+  //? ?삭제가 안됨?????
   const { alert } = Alert.use();
-  const onDelete = useCallback(() => {
+  const onDelete = useCallback(async () => {
+    const ref = dbService.collection("sample").doc();
     if (confirm("삭제하시겠습니까?")) {
       setTodos((prev) => prev.filter((item) => item !== payload));
       alert("삭제했습니다");
     } else {
       alert("취소했습니다");
+    }
+    try {
+      await ref.delete();
+      console.log("삭제되었습니다.");
+    } catch (error: any) {
+      console.log(error);
     }
   }, [payload, setTodos, alert]);
 
@@ -43,10 +53,11 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
       ) : (
         <Container.Col className="flex flex-row justify-between p-5">
           <div>
-            <p>
-              {index + 1}.{payload?.name}
-            </p>
-
+            <div className="flex gap-x-1.5 items-center ">
+              <FaUser className="text-teal-700" />
+              <p className="font-bold">{index + 1}.</p>
+              <p>{payload?.name}</p>
+            </div>
             <p>{payload?.email}</p>
             <p>{payload?.password}</p>
           </div>
