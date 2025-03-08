@@ -53,13 +53,13 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
       ) : (
         <Container.Col className="flex flex-row justify-between p-5 lg:flex-col">
           <div>
-            <div className="flex gap-x-1.5 items-center ">
-              <FaUser className="text-teal-700" />
+            <div className="flex gap-x-1.5 items-center  ">
+              <FaUser className="text-teal-700 " />
               <p className="font-bold">{index + 1}.</p>
               <p>{payload?.name}</p>
             </div>
             <p>{payload?.email}</p>
-            <p>{payload?.password}</p>
+            <p>pw:{payload?.password}</p>
           </div>
 
           <Container.Col className="flex flex-col justify-between gap-y-4 ">
@@ -68,23 +68,23 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
                 onClick={toggleModal}
                 className={twMerge(
                   bnts,
-                  " rounded-3xl bg-teal-700 justify-end text-white items-center "
+                  " rounded-3xl bg-teal-700 justify-end  items-center "
                 )}
               >
-                ID확인
+                ID
               </Button.Opacity>
             </div>
             <Container.Row className="flex gap-2.5 items-end ">
               <Button.Opacity
                 onClick={editHandler}
-                className={twMerge(bnts, " bg-green-100 ")}
+                className={twMerge(bnts, " bg-teal-600  ")}
               >
                 수정
               </Button.Opacity>
               <Button.Opacity
                 type="submit"
                 onClick={onDelete}
-                className={twMerge(bnts, " bg-red-400 text-white ")}
+                className={twMerge(bnts, " bg-red-500  ")}
               >
                 삭제
               </Button.Opacity>
@@ -115,4 +115,4 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
 
 export default TodoItem;
 
-const bnts = "p-2 h-8";
+const bnts = "p-2 h-8 text-white";
