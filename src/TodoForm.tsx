@@ -18,7 +18,7 @@ interface Props {
 const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
   const initialState: User = useMemo(
     () => ({
-      id: v4(),
+      Uid: v4(),
       name: "",
       email: "",
       password: "",
@@ -89,25 +89,27 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
 
   const { alert } = Alert.use();
   const onSubmit = useCallback(async () => {
-    if (nameMessage) {
-      alert(nameMessage);
-      return focus();
-    }
-    if (emailMessage) {
-      alert(emailMessage);
-      return focus();
-    }
-    if (pwMessage) {
-      alert(pwMessage);
-      return focus();
-    }
+    setTimeout(() => {
+      if (nameMessage) {
+        alert(nameMessage);
+        return focus();
+      }
+      if (emailMessage) {
+        alert(emailMessage);
+        return focus();
+      }
+      if (pwMessage) {
+        alert(pwMessage);
+        return focus();
+      }
+    }, 100);
 
     const foundTodo = todos.find((item) => item.email === todo.email);
     if (foundTodo) {
       alert("중복된 이메일 입니다.");
       return;
     }
-
+    // try {
     setTodos((prev) => {
       let copy = [...prev];
       if (isEditing) {
@@ -126,6 +128,13 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     if (isEditing && onCancel) {
       onCancel();
     }
+    //   const id = v4();
+    //   const ref = dbService.collection("todos").doc(id);
+    //   await ref.set({ ...todo });
+    // } catch (error: any) {
+    //   return alert(error);
+    // }
+
     // try {
     //   const ref = await addDoc(collection(dbService, "todos"), {
     //     id: todo.id,

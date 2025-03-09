@@ -8,17 +8,23 @@ import { dbService } from "./lib";
 
 const Todo = () => {
   const [todos, setTodos] = useState<User[]>([]);
-  // const ref = dbService.collection("todos");
-  // useEffect(() => {
-  //   const subscribeItem = ref.onSnapshot((snap) => {
-  //     const data = snap.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  //     setTodos(data as User[]);
-  //   });
+  const ref = dbService.collection("todos");
+  useEffect(() => {
+    const subscribeItem = ref.onSnapshot((snap) => {
+      const data = snap.docs.map((doc) => ({
+        ...doc.data(),
+        Uid: doc.id,
+        name: "",
+        email: "",
+        password: "",
+      }));
+      setTodos(data as User[]);
+    });
 
-  //   subscribeItem;
+    subscribeItem;
 
-  //   return subscribeItem;
-  // }, []);
+    return subscribeItem;
+  }, []);
   return (
     <>
       <AlertComponent />
@@ -31,7 +37,7 @@ const Todo = () => {
           {todos.map((todo, index) => {
             return (
               <TodoItem
-                key={todo.id}
+                key={todo.Uid}
                 index={index}
                 payload={todo}
                 setTodos={setTodos}
