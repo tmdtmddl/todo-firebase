@@ -117,16 +117,29 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
         if (index >= 0) {
           copy[index] = todo;
         }
-      } else {
-        copy.unshift(todo);
       }
+      // else {
+      //   copy.unshift(todo);
+      // }
 
       return copy;
     });
-    alert(isEditing ? "수정되었습니다." : "추가되었습니다.");
-    setTodo(initialState);
-    if (isEditing && onCancel) {
-      onCancel();
+    try {
+      const docRef = await addDoc(collection(dbService, "todos"), {
+        name: todo.name,
+        email: todo.email,
+        password: todo.password,
+      });
+      console.log("저장 ID:", docRef.id);
+
+      alert(isEditing ? "수정되었습니다." : "추가되었습니다.");
+      setTodo(initialState);
+      if (isEditing && onCancel) {
+        onCancel();
+      }
+      setTodos((prev) => [{ ...todo, id: docRef.id }, ...prev]);
+    } catch (error: any) {
+      console.log("오류:", error);
     }
 
     // try {
