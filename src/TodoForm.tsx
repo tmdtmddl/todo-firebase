@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { AlertComponent, Button, Container, Form } from "./components";
 import { v4 } from "uuid";
 import { User } from "./@types";
@@ -105,11 +105,11 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     }, 100);
 
     const foundTodo = todos.find((item) => item.email === todo.email);
-    if (foundTodo) {
+    if (!isEditing && foundTodo) {
       alert("중복된 이메일 입니다.");
       return;
     }
-    // try {
+
     setTodos((prev) => {
       let copy = [...prev];
       if (isEditing) {
@@ -128,16 +128,6 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     if (isEditing && onCancel) {
       onCancel();
     }
-
-    //   const ref = dbService.collection("todos");
-    //   await ref.add({
-    //     name: todo.name,
-    //     email: todo.email,
-    //     password: todo.password,
-    //   });
-    // } catch (error: any) {
-    //   return alert(error);
-    // }
 
     // try {
     //   const ref = await addDoc(collection(dbService, "todos"), {
@@ -168,6 +158,39 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     alert,
     onCancel,
   ]);
+
+  // const onAdd = useCallback(async () => {
+  //   try {
+  //     const ref = dbService.collection("todos");
+  //     await ref.add({
+  //       name: todo.name,
+  //       email: todo.email,
+  //       password: todo.password,
+  //       Uid: todo.Uid,
+  //     });
+  //     console.log();
+  //   } catch (error: any) {
+  //     return alert(error);
+  //   }
+  // }, [alert, todo.Uid, todo.email, todo.name, todo.password]);
+
+  // useEffect(() => {
+  //   const ref = dbService.collection("todos");
+  //   const subscribeItem = ref.onSnapshot((snap) => {
+  //     const data = snap.docs.map((doc) => ({
+  //       ...doc.data(),
+  //       Uid: todo.Uid,
+  //       name: todo.name,
+  //       email: todo.email,
+  //       password: todo.password,
+  //     }));
+  //     setTodos(data as User[]);
+  //   });
+
+  //   subscribeItem;
+
+  //   return subscribeItem;
+  // }, []);
 
   return (
     <>

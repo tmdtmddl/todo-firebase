@@ -105,7 +105,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
               </Button.Opacity>
             </div>
             <h2 className="text-lg font-semibold">ID </h2>
-            <p className="mt-2">{payload?.id}</p>
+            <p className="mt-2">{payload?.Uid}</p>
             <div className="flex justify-end mt-4"></div>
           </div>
         </div>
