@@ -5,7 +5,7 @@ import { User } from "./@types";
 import { twMerge } from "tailwind-merge";
 import { Alert } from "./context";
 import { dbService } from "./lib";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc } from "firebase/firestore";
 
 interface Props {
   payload?: User;
@@ -128,9 +128,13 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     if (isEditing && onCancel) {
       onCancel();
     }
-    //   const id = v4();
-    //   const ref = dbService.collection("todos").doc(id);
-    //   await ref.set({ ...todo });
+
+    //   const ref = dbService.collection("todos");
+    //   await ref.add({
+    //     name: todo.name,
+    //     email: todo.email,
+    //     password: todo.password,
+    //   });
     // } catch (error: any) {
     //   return alert(error);
     // }
