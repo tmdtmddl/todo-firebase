@@ -26,7 +26,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   const onDelete = useCallback(async () => {
     const ref = dbService.collection("sample").doc();
     if (confirm("삭제하시겠습니까?")) {
-      setTodos((prev) => prev.filter((item) => item.name !== payload?.name));
+      setTodos((prev) => prev.filter((item) => item.id !== payload?.id));
       alert("삭제했습니다");
     } else {
       alert("취소했습니다");
@@ -51,18 +51,18 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
           todos={todos}
         />
       ) : (
-        <Container.Col className="flex flex-row justify-between p-5 lg:flex-col">
-          <div>
+        <Container.Col className="flex flex-row justify-between py-3 px-2 lg:flex-col gap-x-4 ">
+          <div className="break-all w-full flex flex-col gap-y-2 xs:flex-row flex-1">
             <div className="flex gap-x-1.5 items-center  ">
               <FaUser className="text-teal-700 " />
               <p className="font-bold">{index + 1}.</p>
               <p>{payload?.name}</p>
             </div>
-            <p>{payload?.email}</p>
-            <p>pw:{payload?.password}</p>
+            <p className="max-w-full">{payload?.email}</p>
+            <p className="max-w-full">pw:{payload?.password}</p>
           </div>
 
-          <Container.Col className="flex flex-col justify-between gap-y-4 ">
+          <Container.Col className="flex flex-col justify-between gap-y-6 box-border items-end">
             <div className="flex justify-end lg:justify-start">
               <Button.Opacity
                 onClick={toggleModal}
@@ -74,7 +74,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
                 ID
               </Button.Opacity>
             </div>
-            <Container.Row className="flex gap-2.5 items-end ">
+            <Container.Row className="flex gap-2.5 items-end md:flex-col lg:flex-row  ">
               <Button.Opacity
                 onClick={editHandler}
                 className={twMerge(bnts, " bg-teal-600  ")}
@@ -84,7 +84,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
               <Button.Opacity
                 type="submit"
                 onClick={onDelete}
-                className={twMerge(bnts, " bg-red-500  ")}
+                className={twMerge(bnts, " bg-red-500   ")}
               >
                 삭제
               </Button.Opacity>
@@ -98,7 +98,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
             <div className="flex justify-end">
               <Button.Opacity
                 onClick={toggleModal}
-                className="bg-green-50 w-10  font-bold"
+                className="bg-green-50 w-10  font-bold cursor-pointer"
               >
                 X
               </Button.Opacity>
@@ -115,4 +115,4 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
 
 export default TodoItem;
 
-const bnts = "p-2 h-8 text-white";
+const bnts = "p-2 h-8 text-white  ";

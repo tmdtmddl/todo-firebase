@@ -67,6 +67,9 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     if (todo.password.length === 0) {
       return "비밀번호를 입력해주세요.";
     }
+    if (todo.password.length > 10) {
+      return "비밀번호가 너무길어요.";
+    }
   }, [todo.password]);
 
   const focus = useCallback(async () => {
@@ -112,29 +115,32 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
         if (index >= 0) {
           copy[index] = todo;
         }
+      } else {
+        copy.unshift(todo);
       }
-      //  else {
-      //   copy.unshift(todo);
-      // }
 
       return copy;
     });
-
-    try {
-      const ref = await addDoc(collection(dbService, "todos"), {
-        id: todo.id,
-        name: todo.name,
-        email: todo.email,
-        password: todo.password,
-      });
-      console.log(" ID:", ref.id);
-      setTodos((prev) => [todo, ...prev]);
-      alert(isEditing ? "수정되었습니다." : "추가되었습니다.");
-      setTodo(initialState);
-    } catch (error: any) {
-      return alert(error.message);
+    alert(isEditing ? "수정되었습니다." : "추가되었습니다.");
+    setTodo(initialState);
+    if (isEditing && onCancel) {
+      onCancel();
     }
-    return;
+    // try {
+    //   const ref = await addDoc(collection(dbService, "todos"), {
+    //     id: todo.id,
+    //     name: todo.name,
+    //     email: todo.email,
+    //     password: todo.password,
+    //   });
+    //   console.log(" ID:", ref.id);
+    //   setTodos((prev) => [todo, ...prev]);
+    //   alert(isEditing ? "수정되었습니다." : "추가되었습니다.");
+    //   setTodo(initialState);
+    // } catch (error: any) {
+    //   return alert(error.message);
+    // }
+    // return;
   }, [
     todo,
     todos,
@@ -147,6 +153,7 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
     pwMessage,
     focus,
     alert,
+    onCancel,
   ]);
 
   return (
@@ -193,7 +200,7 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
               value={todo.password}
               onChange={onChange}
               className="border border-green-900 "
-              placeholder="비밀번호를 입력하세요."
+              placeholder="비밀번호를 입력하세요.(11자리이하)"
             />
           </Container.Row>
         </Container.Col>
@@ -201,9 +208,7 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
         <Container.Col className="flex flex-row gap-x-2 justify-end ">
           <Button.Opacity
             type="submit"
-            className={twMerge(
-              !isEditing ? isEdit : "bg-teal-600 text-white p-5 "
-            )}
+            className={!isEditing ? isEdit : "bg-teal-600 text-white p-5 "}
           >
             {isEditing ? "수정" : "추가"}
           </Button.Opacity>

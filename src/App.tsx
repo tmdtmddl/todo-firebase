@@ -8,21 +8,21 @@ import { dbService } from "./lib";
 
 const Todo = () => {
   const [todos, setTodos] = useState<User[]>([]);
-  const ref = dbService.collection("todos");
-  useEffect(() => {
-    const subscribeItem = ref.onSnapshot((snap) => {
-      const data = snap.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setTodos(data as User[]);
-    });
+  // const ref = dbService.collection("todos");
+  // useEffect(() => {
+  //   const subscribeItem = ref.onSnapshot((snap) => {
+  //     const data = snap.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  //     setTodos(data as User[]);
+  //   });
 
-    subscribeItem;
+  //   subscribeItem;
 
-    return subscribeItem;
-  }, []);
+  //   return subscribeItem;
+  // }, []);
   return (
     <>
       <AlertComponent />
-      <Container.Col className="flex flex-col gap-y-2.5  max-w-2xl mx-auto border-2 p-8 border-gray-300 bg-stone-50">
+      <Container.Col className="flex flex-col gap-y-2.5  max-w-2xl mx-auto border-2 p-8 border-gray-300 bg-gray-50">
         <Typo.H1 className="flex justify-center text-5xl gap-x-3">
           <p> 유저명단</p> <PiUserListLight className="text-green-900" />
         </Typo.H1>
