@@ -26,6 +26,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
     const ref = dbService.collection("todos").doc(payload.Uid);
     try {
       if (confirm("삭제하시겠습니까?")) {
+        //로직상 여기임
         await ref.delete();
         alert("삭제했습니다");
       } else {
