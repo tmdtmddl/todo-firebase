@@ -10,7 +10,7 @@ import { dbService } from "./lib";
 interface Props {
   todos: User[];
   setTodos: any;
-  payload?: User;
+  payload: User;
   index: number;
 }
 
@@ -21,14 +21,12 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  //? ?삭제가 안됨?????
   const { alert } = Alert.use();
   const onDelete = useCallback(async () => {
-    const ref = dbService.collection("sample").doc();
+    const ref = dbService.collection("todos").doc(payload.Uid);
     try {
-      await ref.delete();
       if (confirm("삭제하시겠습니까?")) {
-        setTodos((prev) => prev.filter((item) => item.Uid !== payload?.Uid));
+        await ref.delete();
         alert("삭제했습니다");
       } else {
         alert("취소했습니다");
@@ -38,7 +36,7 @@ const TodoItem = ({ todos, setTodos, payload, index }: Props) => {
     } catch (error: any) {
       console.log(error);
     }
-  }, [payload, setTodos, alert]);
+  }, [payload, alert]);
 
   return (
     <li className="border border-teal-800 rounded-xl bg-white ">

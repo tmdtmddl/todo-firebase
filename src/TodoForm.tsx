@@ -18,7 +18,7 @@ interface Props {
 const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
   const initialState: User = useMemo(
     () => ({
-      Uid: v4(),
+      Uid: "",
       name: "",
       email: "",
       password: "",
@@ -124,11 +124,10 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
 
       return copy;
     });
+
     try {
       const docRef = await addDoc(collection(dbService, "todos"), {
-        name: todo.name,
-        email: todo.email,
-        password: todo.password,
+        ...todo,
       });
       console.log("저장 ID:", docRef.id);
 
@@ -137,7 +136,6 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
       if (isEditing && onCancel) {
         onCancel();
       }
-      setTodos((prev) => [{ ...todo, id: docRef.id }, ...prev]);
     } catch (error: any) {
       console.log("오류:", error);
     }
@@ -186,24 +184,6 @@ const TodoForm = ({ payload, isEditing, todos, setTodos, onCancel }: Props) => {
   //     return alert(error);
   //   }
   // }, [alert, todo.Uid, todo.email, todo.name, todo.password]);
-
-  // useEffect(() => {
-  //   const ref = dbService.collection("todos");
-  //   const subscribeItem = ref.onSnapshot((snap) => {
-  //     const data = snap.docs.map((doc) => ({
-  //       ...doc.data(),
-  //       Uid: todo.Uid,
-  //       name: todo.name,
-  //       email: todo.email,
-  //       password: todo.password,
-  //     }));
-  //     setTodos(data as User[]);
-  //   });
-
-  //   subscribeItem;
-
-  //   return subscribeItem;
-  // }, []);
 
   return (
     <>
